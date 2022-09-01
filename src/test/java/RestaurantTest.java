@@ -74,5 +74,16 @@ class RestaurantTest {
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<OrderValue>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+    @Test
+    public void getOrderValue_should_return_Total_OrderValue_When_Items_are_Passed_as_parameters(){
+        List<String> orderedItems=new ArrayList<>();
+        orderedItems.add("Sweet corn soup");
+        orderedItems.add("Vegetable lasagne");
+        int totalValue=388;
+        assertThat(restaurant.getOrderValue(orderedItems),equalTo(totalValue));
+
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<OrderValue>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
