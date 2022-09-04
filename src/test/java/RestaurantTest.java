@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -11,12 +12,11 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class RestaurantTest {
     Restaurant restaurant;
-
+    RestaurantService service = new RestaurantService();
     @BeforeEach
     public void setup(){
 
@@ -30,7 +30,10 @@ class RestaurantTest {
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test
     public void is_restaurant_open_should_return_true_if_time_is_between_opening_and_closing_time(){
-
+         restaurant = mock(Restaurant.class, CALLS_REAL_METHODS );
+        restaurant.openingTime = LocalTime.parse("10:30:00");
+        restaurant.closingTime = LocalTime.parse("22:00:00");
+        when(restaurant.getCurrentTime()).thenReturn(LocalTime.parse("11:00:00"));
         assertTrue(restaurant.isRestaurantOpen());
 
     }
@@ -38,6 +41,10 @@ class RestaurantTest {
     @Test
     public void is_restaurant_open_should_return_false_if_time_is_outside_opening_and_closing_time(){
 
+        restaurant = mock(Restaurant.class, CALLS_REAL_METHODS );
+        restaurant.openingTime = LocalTime.parse("10:30:00");
+        restaurant.closingTime = LocalTime.parse("22:00:00");
+        when(restaurant.getCurrentTime()).thenReturn(LocalTime.parse("10:00:00"));
         assertFalse(restaurant.isRestaurantOpen());
 
     }
